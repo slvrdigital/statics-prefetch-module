@@ -6,7 +6,7 @@ export default {
     serviceCollection: [
       {
         url: 'https://jsonplaceholder.typicode.com/posts/1',
-        fileName: 'post-1.json',
+        saveAs: 'post-1.json',
         onDone: data => ({
           // handle response
           ...data,
@@ -14,12 +14,16 @@ export default {
         })
       },
       {
-        url: 'https://jsonplaceholders.typicode.com/posts/2',
-        fileName: 'post-2.json'
+        url: 'https://jsonplaceholder.typicode.com/posts/2',
+        saveAs: 'post-2.json'
       },
       {
         url: 'https://jsonplaceholder.typicode.com/posts',
-        fileName: 'posts.json'
+        saveAs: 'posts.json'
+      },
+      {
+        url: 'https://restcountries.eu/rest/v2/all',
+        saveAs: 'countries.json'
       }
     ]
   }

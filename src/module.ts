@@ -2,13 +2,13 @@ import defu from 'defu'
 import { Module } from '@nuxt/types'
 import fse from 'fs-extra'
 import path from 'path'
-import chalk from 'chalk'
+// import chalk from 'chalk'
 import Listr from 'listr'
 import fetch from 'node-fetch'
 
 export interface EnumRequest extends RequestInit {
   url: string
-  fileName: string
+  saveAs: string
   onDone: void
 }
 
@@ -22,7 +22,7 @@ const warn = console.warn
 const error = console.error
 
 const CONFIG_KEY = 'staticsPrefetch'
-const DEST_FOLDER = '/static/json'
+const DEST_FOLDER = '/static/data'
 
 const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
   const { nuxt } = this
@@ -54,18 +54,29 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
     fse.outputFile(path, JSON.stringify(data))
 
   const assignTasks = (builder: any) => {
-    const tasks = []
+    const tasks: any = []
+    const isInvalid = options.serviceCollection.some(
+      item => !item.url || !item.saveAs
+    )
+
+    if (isInvalid) {
+      tasks.push({
+        title: 'Expected `url` and `saveAs` properties to be defined',
+        task: () => Promise.reject()
+      })
+
+      return tasks
+    }
 
     for (const item of options.serviceCollection) {
-      const fileName = item.fileName
       const filePath = path.join(
         builder.nuxt.options.rootDir,
         options.dest,
-        fileName
+        item.saveAs
       )
 
       tasks.push({
-        title: fileName,
+        title: item.saveAs,
         task: () =>
           fetch(item.url, item)
             .then(res => res.json())
@@ -78,11 +89,12 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
     return tasks
   }
 
-  nuxt.hook('build:done', async (builder: any) => {
-    const statics = await assignTasks(builder)
+  nuxt.hook('build:before', async (builder: any) => {
+    const statics = assignTasks(builder)
+
     const tasks = new Listr([
       {
-        title: 'Fetching statics',
+        title: 'Statics prefetch',
         task: () => new Listr(statics)
       }
     ])
