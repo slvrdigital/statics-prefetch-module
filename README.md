@@ -1,4 +1,4 @@
-# @slvr/statics-prefetch
+# @slvrdigital/statics-prefetch
 
 - [✨ &nbsp;Release Notes](http://example.com/releases)
 - [📖 &nbsp;Documentation](https://example.com)
@@ -12,18 +12,18 @@
 
 ## Quick Setup
 
-1. Add `@slvr/statics-prefetch` dependency to your project
+1. Add `@slvrdigital/statics-prefetch` dependency to your project
 
 ```bash
-npm install @slvr/statics-prefetch # or yarn add @slvr/statics-prefetch
+npm install @slvrdigital/statics-prefetch # or yarn add @slvrdigital/statics-prefetch
 ```
 
-2. Add `@slvr/statics-prefetch` to the `buildModules` section of `nuxt.config.js` (or `modules` if on Nuxt < 2.9>)
+2. Add `@slvrdigital/statics-prefetch` to the `buildModules` section of `nuxt.config.js` (or `modules` if on Nuxt < 2.9>)
 
 ```js
 {
   buildModules: [
-    '@slvr/statics-prefetch',
+    '@slvrdigital/statics-prefetch',
   ],
 }
 ```
