@@ -1,3 +1,4 @@
+[![@nuxtjs/ngrok](./docs/static/preview.svg)](https://github.com/slvrdigital/statics-prefetch-module)
 # @slvrdigital/statics-prefetch
 
 - [✨ &nbsp;Release Notes](http://example.com/releases)
