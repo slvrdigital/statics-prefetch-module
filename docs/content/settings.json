@@ -1,11 +1,10 @@
- 
 {
   "title": "@slvrdigital/statics-prefetch",
   "url": "https://github.com/slvrdigital/statics-prefetch-module",
   "github": "slvrdigital/statics-prefetch-module",
   "twitter": "",
   "logo": {
-    "light": "",
-    "dark": ""
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg"
   }
 }
