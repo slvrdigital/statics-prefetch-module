@@ -7,11 +7,12 @@ export default {
       {
         url: 'https://jsonplaceholder.typicode.com/posts/1',
         saveAs: 'post-1.json',
-        onDone: data => ({
-          // handle response
-          ...data,
-          title: data?.title?.toUpperCase()
-        })
+        beforeSave: data => {
+          return {
+            ...data,
+            title: data?.title?.toUpperCase()
+          }
+        }
       },
       {
         url: 'https://jsonplaceholder.typicode.com/posts/2',

@@ -1,15 +1,14 @@
+import path from 'path'
 import defu from 'defu'
 import { Module } from '@nuxt/types'
 import fse from 'fs-extra'
-import path from 'path'
-// import chalk from 'chalk'
 import Listr from 'listr'
-import fetch from 'node-fetch'
+import fetch, { RequestInit } from 'node-fetch'
 
 export interface EnumRequest extends RequestInit {
   url: string
   saveAs: string
-  onDone: void
+  beforeSave: (data: any) => any
 }
 
 export interface ModuleOptions {
@@ -33,15 +32,15 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
     serviceCollection: []
   }
 
-  const options = defu<ModuleOptions>(
-    this.options[CONFIG_KEY],
+  const options = defu<ModuleOptions, ModuleOptions>(
+    this.options[CONFIG_KEY]!,
     moduleOptions,
     defaults
   )
 
   if (!Array.isArray(options.serviceCollection)) {
     warn(
-      '[statics-prefetch] `serviceCollection` property value should be an array'
+      '[statics-prefetch] expected `serviceCollection` property to be an array'
     )
     return
   }
@@ -50,8 +49,7 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
     return
   }
 
-  const saveFile = (path: string, data: any) =>
-    fse.outputFile(path, JSON.stringify(data))
+  const saveJSON = (path: string, data: any) => fse.outputJson(path, data)
 
   const assignTasks = (builder: any) => {
     const tasks: any = []
@@ -61,8 +59,11 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
 
     if (isInvalid) {
       tasks.push({
-        title: 'Expected `url` and `saveAs` properties to be defined',
-        task: () => Promise.reject()
+        title: 'Config exception',
+        task: () =>
+          Promise.reject(
+            new Error('Expected `url` and `saveAs` properties to be defined')
+          )
       })
 
       return tasks
@@ -80,8 +81,8 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
         task: () =>
           fetch(item.url, item)
             .then(res => res.json())
-            .then(item.onDone)
-            .then(data => saveFile(filePath, data))
+            .then(item.beforeSave)
+            .then(data => saveJSON(filePath, data))
             .catch(error => Promise.reject(error))
       })
     }
