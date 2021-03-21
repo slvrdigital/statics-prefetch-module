@@ -2,6 +2,23 @@
   "name": "@slvr/statics-prefetch",
   "version": "0.0.1",
   "description": "Nuxt.js module for static data prefetching",
+  "keywords": [
+    "nuxt",
+    "module",
+    "nuxt-module",
+    "json",
+    "static",
+    "prefetch"
+  ],
+  "homepage": "https://github.com/slvrdigital/statics-prefetch-module#readme",
+  "bugs": {
+    "url": "https://github.com/slvrdigital/statics-prefetch-module/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slvr-digital/statics-prefetch-module.git"
+  },
+  "license": "MIT",
   "main": "dist/module.js",
   "types": "dist/module.d.ts",
   "scripts": {
@@ -11,25 +28,7 @@
     "release": "npm run build && npm run test && standard-version && git push --follow-tags && npm publish",
     "test": "npm run lint && jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/slvr-digital/statics-prefetch-module.git"
-  },
-  "keywords": [
-    "nuxt",
-    "module",
-    "nuxt-module",
-    "json",
-    "static",
-    "prefetch"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/slvrdigital/statics-prefetch-module/issues"
-  },
-  "homepage": "https://github.com/slvrdigital/statics-prefetch-module#readme",
   "dependencies": {
-    "chalk": "^4.1.0",
     "defu": "^3.2.2",
     "fs-extra": "^9.1.0",
     "listr": "^0.14.3",
@@ -45,6 +44,8 @@
     "@nuxtjs/eslint-config-typescript": "latest",
     "@siroc/jest-preset": "latest",
     "@types/jest": "latest",
+    "@types/listr": "^0.14.2",
+    "@types/node-fetch": "^2.5.8",
     "babel-eslint": "latest",
     "babel-jest": "latest",
     "eslint": "latest",
