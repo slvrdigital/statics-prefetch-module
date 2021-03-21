@@ -21,6 +21,9 @@
   "license": "MIT",
   "main": "dist/module.js",
   "types": "dist/module.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "siroc build",
     "dev": "nuxt-ts example",
