@@ -1,5 +1,5 @@
 {
-  "name": "@slvr/statics-prefetch",
+  "name": "@slvrdigital/statics-prefetch",
   "version": "0.0.1",
   "description": "Nuxt.js module for static data prefetching",
   "keywords": [
